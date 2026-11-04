@@ -2,86 +2,9 @@
 
 Aux Battles is a real-time music guessing game. A host creates a battle, shares an invite code, and an opponent joins from a separate account. Players pick songs and take turns guessing the song title across several rounds.
 
-## Legal notice
-
-Aux Battles is provided for personal, educational, and evaluation purposes only. It is not authorized for commercial operation, monetization, or the public distribution of third-party music.
-This repository does not grant any right to upload, copy, modify, separate into stems, stream, perform, or otherwise use music or other third-party content. Users and operators are solely responsible for ensuring that they have all permissions and licences required for every work, sound recording, and performance they use. Only use content that you created, that is in the public domain, or that is covered by a licence which expressly permits the intended use.
-The project is not affiliated with or endorsed by any artist, label, publisher, or rights holder. This notice is provided for general information and is not legal advice.
-## Table of contents
-
-- [Legal notice](#legal-notice)
-- [Project structure](#project-structure)
-- [Requirements](#requirements)
-- [Backend setup](#backend-setup)
-- [Database setup](#database-setup)
-- [Frontend setup](#frontend-setup)
-- [Adding songs](#adding-songs)
-- [Authentication](#authentication)
-- [Testing two players](#testing-two-players)
-- [API routes](#api-routes)
-## Project structure
-
-```text
-aux-battles/
-├── server/   Express 5 API, PostgreSQL, Drizzle ORM, Socket.IO
-└── client/   React + Vite frontend
-```
-## Requirements
-- Node.js 20 or newer
-- PostgreSQL 14 or newer
-- npm
-- FFmpeg and ffprobe
-- Python with Demucs installed in `worker/venv`
-
 ## Backend setup
-```code
-cd server
-npm install
-cp .env.example .env
-```
-#### Set DATABASE_URL in .env:
-```code
-DATABASE_URL=postgres://postgres:password@localhost:5432/aux_battles
-PORT=5000
-NODE_ENV=development
-CLIENT_ORIGIN=http://localhost:5173
-```
-#### Start the API:
-```code
-npm run dev
-```
-#### Start the song-processing worker in another terminal:
-```code
-npm run worker
-```
-#### Or start both development processes together:
-```code
-npm run dev:all
-```
-#### The API runs at http://localhost:5000.
 
-## Database migrations
-
-#### The schema is defined in server/src/db/schema.ts and migrations are stored in server/src/db/migrations.
-#### Generate a migration after changing the schema:
-```code
-cd server
-npx drizzle-kit generate --config=./drizzle.config.ts
-```
-#### Apply migrations:
-```code
-npx drizzle-kit migrate --config=./drizzle.config.ts
-```
-```text
-For a local development database where migration history is out of sync, inspect the proposed changes carefully before using:
-code
-npx drizzle-kit push --config=./drizzle.config.ts
-```
-Never truncate rounds, guesses, or other tables just to add a constraint. Resolve duplicate data first.
-#### Confirm the session table exists:
-```code
-psql "$DATABASE_URL" -c "SELECT to_regclass('public.sessions');"
-```
+This repo is no longer maintained, the backend is getting a rewrite in Go. Check out [aux-battles](https://github.com/kericchhh/aux-battles)
 
 ## Frontend setup
 ```code
